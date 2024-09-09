@@ -1,0 +1,5 @@
+Caso,T_topo,T_fundo
+Temperatura Uniforme (25°C),25,25
+Temperatura Uniforme (60°C),60,60
+Temperatura Uniforme (100°C),100,100
+Gradiente Uniforme (4°C – 120°C),4,120

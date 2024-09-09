@@ -1,0 +1,45 @@
+sim_name: HPHT_simulation
+domain:
+  height: 0.21
+  spatial_divisions: 220
+suspension:
+  initial_conc: 0.1391
+  max_conc: 0.19
+solid_phase:
+  particle_diam: 0.0000408
+  particle_esphericity: 0.8
+  density: 2709
+fluid_phase:
+  density: 891.4
+  power_law:
+    M: 30.13
+    n: 0.21
+simulation_parameters:
+  timestep: 100
+  total_time: 31536000 # 31536000
+equation_parameters:
+  delta: 0.58
+  k0: 27.99
+  beta: 0.19
+  ref_conc: 0.14
+  p_ref: 18.62
+export:
+  frequency: 1000
+report:
+  frequency: 10000
+HPHT: # Fill this field to enable HPHT model
+  temperature:
+    model: "exponential"
+    reference_temperature: 25 # °C
+    viscosity_factor: 0.01 # a °C-¹
+    temperature_regimes:
+      - initial_step: 0 # s
+        top_temperature: 25 # °C
+        gradient: 100 # °C/m
+      - initial_step: 1000 # s
+        top_temperature: 50 # °C
+        gradient: 200 # °C/m
+  pressure:
+    model: "exponential"
+    reference_pressure: 0 # Pa
+    viscosity_factor: -0.0002 # beta Pa-¹

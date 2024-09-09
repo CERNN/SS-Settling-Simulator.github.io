@@ -1,0 +1,40 @@
+sim_name: 4_fases
+domain:
+  height: 0.21
+  spatial_divisions: 220
+  annular_domain:
+    internal_radius: 0.01
+    steps:
+      - position_z: 0.0525
+        radius: 0.02
+      - position_z: 0.105
+        radius: 0.03
+      - position_z: 0.1575
+        radius: 0.04
+      - position_z: 0.2
+        radius: 0.05
+suspension:
+  initial_conc: 0.1391
+  max_conc: 0.19
+solid_phase:
+  particle_diam: 0.0000408
+  particle_esphericity: 0.8
+  density: 2709
+fluid_phase:
+  density: 891.4
+  power_law:
+    M: 30.13
+    n: 0.21
+simulation_parameters:
+  timestep: 1000
+  total_time: 31536000
+equation_parameters:
+  delta: 0.622641
+  k0: 47.601104
+  beta: 0.04983
+  ref_conc: 0.14
+  p_ref: 63.640954
+export:
+  frequency: 100
+report:
+  frequency: 1000

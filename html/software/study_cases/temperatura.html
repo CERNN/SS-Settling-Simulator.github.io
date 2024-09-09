@@ -1,0 +1,1038 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Variação de regime de temperatura do poço &#8212; Simulador de Sedimentação</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'software/study_cases/temperatura';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Interface CLI" href="../cli/index.html" />
+    <link rel="prev" title="Variação de seção do poço" href="secao.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Simulador de Sedimentação</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Seções</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../problema/index.html">Problema</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modelagem/index.html">Modelagem</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modelagem/matematica/index.html">Matemática</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/matematica/teoria_constitutiva.html">Teoria Constitutiva</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modelagem/matematica/reologia.html">Reologia</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modelagem/matematica/power_law.html">Modelo de Potência</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modelagem/matematica/hpht.html">Modelo HPHT</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/matematica/velocidade_solidos.html">Velocidade dos Sólidos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/matematica/lista_simbolos.html">Lista de símbolos</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modelagem/numerica/index.html">Numérica</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/numerica/espacial.html">Discretização Espacial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/numerica/temporal.html">Discretização Temporal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/numerica/parametros.html">Parâmetros Numéricos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Software</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../simulation/index.html">Módulo de simulação</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/simulation_example.html">Exemplo de simulação</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/hpht.html">Simulação HPHT</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/HPHT_simulation_pressure.html">Efeito da pressão</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/HPHT_simulation_temperature.html">Efeito da temperatura</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/HPHT_simulation.html">Efeito combinados</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/stepped_domain.html">Variação de seção transversal</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/stepped_domain_simulation.html">Domínio anular</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../estimation/index.html">Módulo de estimação</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../estimation/estimation_example.html">Exemplo de estimação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../estimation/estimation_analysis.html">Análise dos resultados</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../validation/index.html">Casos de validação</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../validation/rocha_2020.html">Rocha et. al (2020)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Casos de estudo</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="secao.html">Variação de seção do poço</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Variação de temperatura do poço</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">Interface CLI</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/software/study_cases/temperatura.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Variação de regime de temperatura do poço</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Read-simulation-data">Read simulation data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="Variação-de-regime-de-temperatura-do-poço">
+<h1>Variação de regime de temperatura do poço<a class="headerlink" href="#Variação-de-regime-de-temperatura-do-poço" title="Permalink to this heading">#</a></h1>
+<p>Arquivo de configuração</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modules.simulation.config.model</span> <span class="kn">import</span> <span class="n">SimulationConfigModel</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="n">case_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;temperature_uniform_25&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Temperatura Uniforme (25°C)&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;temperature_uniform_50&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Temperatura Uniforme (50°C)&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;temperature_uniform_100&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Temperatura Uniforme (100 °C)&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;temperature_linear_4_120&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Gradiente Uniforme (4°C-120°C)&quot;</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">cfg_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./docs/source/_static/software/</span><span class="si">{</span><span class="n">case</span><span class="si">}</span><span class="s2">.yaml&quot;</span><span class="p">)</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">SimulationConfigModel</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">)</span>
+    <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;cfg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
+
+<span class="n">case_data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;temperature_uniform_25&#39;: {&#39;title&#39;: &#39;Temperatura Uniforme (25°C)&#39;,
+  &#39;cfg&#39;: SimulationConfigModel(sim_name=&#39;uniform_25&#39;, domain=DomainModel(height=0.21, spatial_divisions=220, annular_domain=None), suspension=SuspensionModel(initial_conc=0.1391, max_conc=0.19), solid_phase=SolidPhaseModel(particle_diam=4.08e-05, particle_esphericity=0.8, density=2709.0), fluid_phase=FluidPhaseModel(density=891.4, power_law=PowerLawFluidModel(M=30.13, n=0.21)), simulation_parameters=SimulationParameters(timestep=1000.0, total_time=31536000.0), export=FrequencyConfig(frequency=100), report=FrequencyConfig(frequency=1000), HPHT=HPHTModel(temperature=HPHTTemperatureModel(model=&#39;exponential&#39;, reference_temperature=25.0, viscosity_factor=0.005, temperature_regimes=[HPHTTemperatureRegime(initial_step=0.0, top_temperature=25.0, gradient=0.0)]), pressure=None), equation_parameters=EquationParameters(delta=0.622641, k0=47.601104, beta=0.04983, ref_conc=0.14, p_ref=63.640954))},
+ &#39;temperature_uniform_50&#39;: {&#39;title&#39;: &#39;Temperatura Uniforme (50°C)&#39;,
+  &#39;cfg&#39;: SimulationConfigModel(sim_name=&#39;uniform_50&#39;, domain=DomainModel(height=0.21, spatial_divisions=220, annular_domain=None), suspension=SuspensionModel(initial_conc=0.1391, max_conc=0.19), solid_phase=SolidPhaseModel(particle_diam=4.08e-05, particle_esphericity=0.8, density=2709.0), fluid_phase=FluidPhaseModel(density=891.4, power_law=PowerLawFluidModel(M=30.13, n=0.21)), simulation_parameters=SimulationParameters(timestep=1000.0, total_time=31536000.0), export=FrequencyConfig(frequency=100), report=FrequencyConfig(frequency=1000), HPHT=HPHTModel(temperature=HPHTTemperatureModel(model=&#39;exponential&#39;, reference_temperature=25.0, viscosity_factor=0.005, temperature_regimes=[HPHTTemperatureRegime(initial_step=0.0, top_temperature=50.0, gradient=0.0)]), pressure=None), equation_parameters=EquationParameters(delta=0.622641, k0=47.601104, beta=0.04983, ref_conc=0.14, p_ref=63.640954))},
+ &#39;temperature_uniform_100&#39;: {&#39;title&#39;: &#39;Temperatura Uniforme (100 °C)&#39;,
+  &#39;cfg&#39;: SimulationConfigModel(sim_name=&#39;uniform_100&#39;, domain=DomainModel(height=0.21, spatial_divisions=220, annular_domain=None), suspension=SuspensionModel(initial_conc=0.1391, max_conc=0.19), solid_phase=SolidPhaseModel(particle_diam=4.08e-05, particle_esphericity=0.8, density=2709.0), fluid_phase=FluidPhaseModel(density=891.4, power_law=PowerLawFluidModel(M=30.13, n=0.21)), simulation_parameters=SimulationParameters(timestep=1000.0, total_time=31536000.0), export=FrequencyConfig(frequency=100), report=FrequencyConfig(frequency=1000), HPHT=HPHTModel(temperature=HPHTTemperatureModel(model=&#39;exponential&#39;, reference_temperature=25.0, viscosity_factor=0.005, temperature_regimes=[HPHTTemperatureRegime(initial_step=0.0, top_temperature=100.0, gradient=0.0)]), pressure=None), equation_parameters=EquationParameters(delta=0.622641, k0=47.601104, beta=0.04983, ref_conc=0.14, p_ref=63.640954))},
+ &#39;temperature_linear_4_120&#39;: {&#39;title&#39;: &#39;Gradiente Uniforme (4°C-120°C)&#39;,
+  &#39;cfg&#39;: SimulationConfigModel(sim_name=&#39;linear_4_120&#39;, domain=DomainModel(height=0.21, spatial_divisions=220, annular_domain=None), suspension=SuspensionModel(initial_conc=0.1391, max_conc=0.19), solid_phase=SolidPhaseModel(particle_diam=4.08e-05, particle_esphericity=0.8, density=2709.0), fluid_phase=FluidPhaseModel(density=891.4, power_law=PowerLawFluidModel(M=30.13, n=0.21)), simulation_parameters=SimulationParameters(timestep=1000.0, total_time=31536000.0), export=FrequencyConfig(frequency=100), report=FrequencyConfig(frequency=1000), HPHT=HPHTModel(temperature=HPHTTemperatureModel(model=&#39;exponential&#39;, reference_temperature=25.0, viscosity_factor=0.005, temperature_regimes=[HPHTTemperatureRegime(initial_step=0.0, top_temperature=4.0, gradient=552.381)]), pressure=None), equation_parameters=EquationParameters(delta=0.622641, k0=47.601104, beta=0.04983, ref_conc=0.14, p_ref=63.640954))}}
+</pre></div></div>
+</div>
+<p>Run simulations</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">modules.simulation.sim_handler</span> <span class="kn">import</span> <span class="n">SimulationHandler</span>
+
+<span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;cfg&quot;</span><span class="p">]</span>
+    <span class="n">output_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./out/</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">sim_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">sim_handler</span> <span class="o">=</span> <span class="n">SimulationHandler</span><span class="p">(</span><span class="n">cfg</span><span class="o">=</span><span class="n">cfg</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">sim_handler</span><span class="o">.</span><span class="n">start_simulation</span><span class="p">()</span>
+
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tempo total de simulação:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; [s]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Status da simulação: &quot;</span> <span class="o">+</span> <span class="n">sim_handler</span><span class="o">.</span><span class="n">sim_status</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exportando resultados...&quot;</span><span class="p">)</span>
+
+    <span class="n">sim_handler</span><span class="o">.</span><span class="n">export_sim_data</span><span class="p">()</span>
+    <span class="n">sim_handler</span><span class="o">.</span><span class="n">export_domain_polydata</span><span class="p">(</span><span class="n">frequency_reduction</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-white-fg">[2024-09-08 23:34:00,366] [INFO] - simulation - Starting simulation... (sim_handler.py:87)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:00,367] [INFO] - simulation - Current time 0 (sim_handler.py:88)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:01,103] [INFO] - simulation - Simulation report: Current time 1000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:01,103] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:01,833] [INFO] - simulation - Simulation report: Current time 2000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:01,834] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:02,556] [INFO] - simulation - Simulation report: Current time 3000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:02,557] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:03,282] [INFO] - simulation - Simulation report: Current time 4000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:03,283] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:04,012] [INFO] - simulation - Simulation report: Current time 5000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:04,013] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:04,731] [INFO] - simulation - Simulation report: Current time 6000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:04,732] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:05,456] [INFO] - simulation - Simulation report: Current time 7000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:05,457] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:06,207] [INFO] - simulation - Simulation report: Current time 8000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:06,208] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:06,942] [INFO] - simulation - Simulation report: Current time 9000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:06,942] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:07,670] [INFO] - simulation - Simulation report: Current time 10000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:07,670] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:08,392] [INFO] - simulation - Simulation report: Current time 11000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:08,392] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:09,149] [INFO] - simulation - Simulation report: Current time 12000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:09,150] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:09,905] [INFO] - simulation - Simulation report: Current time 13000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:09,905] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:10,652] [INFO] - simulation - Simulation report: Current time 14000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:10,653] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:11,377] [INFO] - simulation - Simulation report: Current time 15000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:11,377] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:12,113] [INFO] - simulation - Simulation report: Current time 16000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:12,114] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:12,843] [INFO] - simulation - Simulation report: Current time 17000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:12,843] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:13,565] [INFO] - simulation - Simulation report: Current time 18000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:13,566] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:14,295] [INFO] - simulation - Simulation report: Current time 19000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:14,296] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:15,020] [INFO] - simulation - Simulation report: Current time 20000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:15,021] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:15,741] [INFO] - simulation - Simulation report: Current time 21000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:15,741] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:16,463] [INFO] - simulation - Simulation report: Current time 22000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:16,464] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:17,185] [INFO] - simulation - Simulation report: Current time 23000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:17,185] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:17,912] [INFO] - simulation - Simulation report: Current time 24000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:17,913] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:18,641] [INFO] - simulation - Simulation report: Current time 25000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:18,642] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:19,357] [INFO] - simulation - Simulation report: Current time 26000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:19,357] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:20,089] [INFO] - simulation - Simulation report: Current time 27000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:20,090] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:20,822] [INFO] - simulation - Simulation report: Current time 28000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:20,823] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:21,556] [INFO] - simulation - Simulation report: Current time 29000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:21,557] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:22,278] [INFO] - simulation - Simulation report: Current time 30000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:22,278] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:23,009] [INFO] - simulation - Simulation report: Current time 31000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:23,010] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+
+Tempo total de simulação:23.030245304107666 [s]
+Status da simulação: finished
+Exportando resultados...
+<span class="ansi-white-fg">[2024-09-08 23:34:26,830] [INFO] - simulation - Starting simulation... (sim_handler.py:87)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:26,830] [INFO] - simulation - Current time 0 (sim_handler.py:88)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:27,556] [INFO] - simulation - Simulation report: Current time 1000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:27,557] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:28,291] [INFO] - simulation - Simulation report: Current time 2000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:28,291] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:29,009] [INFO] - simulation - Simulation report: Current time 3000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:29,010] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:29,736] [INFO] - simulation - Simulation report: Current time 4000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:29,736] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:30,475] [INFO] - simulation - Simulation report: Current time 5000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:30,476] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:31,197] [INFO] - simulation - Simulation report: Current time 6000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:31,198] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:31,923] [INFO] - simulation - Simulation report: Current time 7000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:31,923] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:32,653] [INFO] - simulation - Simulation report: Current time 8000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:32,654] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:33,376] [INFO] - simulation - Simulation report: Current time 9000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:33,377] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:34,104] [INFO] - simulation - Simulation report: Current time 10000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:34,105] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:34,831] [INFO] - simulation - Simulation report: Current time 11000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:34,831] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:35,547] [INFO] - simulation - Simulation report: Current time 12000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:35,548] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:36,282] [INFO] - simulation - Simulation report: Current time 13000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:36,283] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:37,024] [INFO] - simulation - Simulation report: Current time 14000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:37,024] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:37,747] [INFO] - simulation - Simulation report: Current time 15000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:37,748] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:38,473] [INFO] - simulation - Simulation report: Current time 16000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:38,474] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:39,202] [INFO] - simulation - Simulation report: Current time 17000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:39,202] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:39,926] [INFO] - simulation - Simulation report: Current time 18000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:39,927] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:40,649] [INFO] - simulation - Simulation report: Current time 19000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:40,649] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:41,369] [INFO] - simulation - Simulation report: Current time 20000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:41,370] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:42,096] [INFO] - simulation - Simulation report: Current time 21000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:42,097] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:42,827] [INFO] - simulation - Simulation report: Current time 22000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:42,828] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:43,549] [INFO] - simulation - Simulation report: Current time 23000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:43,549] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:44,277] [INFO] - simulation - Simulation report: Current time 24000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:44,277] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:44,998] [INFO] - simulation - Simulation report: Current time 25000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:44,998] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:45,736] [INFO] - simulation - Simulation report: Current time 26000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:45,736] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:46,456] [INFO] - simulation - Simulation report: Current time 27000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:46,457] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:47,187] [INFO] - simulation - Simulation report: Current time 28000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:47,188] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:47,909] [INFO] - simulation - Simulation report: Current time 29000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:47,909] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:48,637] [INFO] - simulation - Simulation report: Current time 30000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:48,637] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:49,360] [INFO] - simulation - Simulation report: Current time 31000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:49,361] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+
+Tempo total de simulação:22.91685676574707 [s]
+Status da simulação: finished
+Exportando resultados...
+<span class="ansi-white-fg">[2024-09-08 23:34:53,224] [INFO] - simulation - Starting simulation... (sim_handler.py:87)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:53,225] [INFO] - simulation - Current time 0 (sim_handler.py:88)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:54,004] [INFO] - simulation - Simulation report: Current time 1000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:54,005] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:54,729] [INFO] - simulation - Simulation report: Current time 2000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:54,730] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:55,493] [INFO] - simulation - Simulation report: Current time 3000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:55,494] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:56,220] [INFO] - simulation - Simulation report: Current time 4000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:56,221] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:56,953] [INFO] - simulation - Simulation report: Current time 5000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:56,953] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:57,671] [INFO] - simulation - Simulation report: Current time 6000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:57,672] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:58,395] [INFO] - simulation - Simulation report: Current time 7000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:58,396] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:59,116] [INFO] - simulation - Simulation report: Current time 8000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:59,116] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:59,837] [INFO] - simulation - Simulation report: Current time 9000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:34:59,837] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:00,564] [INFO] - simulation - Simulation report: Current time 10000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:00,565] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:01,293] [INFO] - simulation - Simulation report: Current time 11000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:01,293] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:02,014] [INFO] - simulation - Simulation report: Current time 12000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:02,015] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:02,746] [INFO] - simulation - Simulation report: Current time 13000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:02,747] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:03,463] [INFO] - simulation - Simulation report: Current time 14000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:03,463] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:04,185] [INFO] - simulation - Simulation report: Current time 15000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:04,185] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:04,904] [INFO] - simulation - Simulation report: Current time 16000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:04,905] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:05,622] [INFO] - simulation - Simulation report: Current time 17000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:05,623] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:06,340] [INFO] - simulation - Simulation report: Current time 18000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:06,340] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:07,062] [INFO] - simulation - Simulation report: Current time 19000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:07,062] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:07,789] [INFO] - simulation - Simulation report: Current time 20000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:07,789] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:08,509] [INFO] - simulation - Simulation report: Current time 21000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:08,510] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:09,238] [INFO] - simulation - Simulation report: Current time 22000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:09,238] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:09,962] [INFO] - simulation - Simulation report: Current time 23000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:09,963] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:10,695] [INFO] - simulation - Simulation report: Current time 24000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:10,696] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:11,427] [INFO] - simulation - Simulation report: Current time 25000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:11,427] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:12,147] [INFO] - simulation - Simulation report: Current time 26000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:12,148] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:12,876] [INFO] - simulation - Simulation report: Current time 27000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:12,876] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:13,597] [INFO] - simulation - Simulation report: Current time 28000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:13,598] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:14,325] [INFO] - simulation - Simulation report: Current time 29000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:14,326] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:15,057] [INFO] - simulation - Simulation report: Current time 30000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:15,058] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:15,785] [INFO] - simulation - Simulation report: Current time 31000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:15,785] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+
+Tempo total de simulação:22.94856548309326 [s]
+Status da simulação: finished
+Exportando resultados...
+<span class="ansi-white-fg">[2024-09-08 23:35:19,573] [INFO] - simulation - Starting simulation... (sim_handler.py:87)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:19,574] [INFO] - simulation - Current time 0 (sim_handler.py:88)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:20,310] [INFO] - simulation - Simulation report: Current time 1000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:20,310] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:21,033] [INFO] - simulation - Simulation report: Current time 2000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:21,034] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:21,749] [INFO] - simulation - Simulation report: Current time 3000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:21,749] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:22,467] [INFO] - simulation - Simulation report: Current time 4000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:22,468] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:23,205] [INFO] - simulation - Simulation report: Current time 5000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:23,206] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:23,936] [INFO] - simulation - Simulation report: Current time 6000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:23,936] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:24,675] [INFO] - simulation - Simulation report: Current time 7000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:24,676] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:25,400] [INFO] - simulation - Simulation report: Current time 8000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:25,400] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:26,122] [INFO] - simulation - Simulation report: Current time 9000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:26,123] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:26,839] [INFO] - simulation - Simulation report: Current time 10000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:26,840] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:27,565] [INFO] - simulation - Simulation report: Current time 11000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:27,566] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:28,291] [INFO] - simulation - Simulation report: Current time 12000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:28,292] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:29,009] [INFO] - simulation - Simulation report: Current time 13000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:29,010] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:29,739] [INFO] - simulation - Simulation report: Current time 14000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:29,739] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:30,455] [INFO] - simulation - Simulation report: Current time 15000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:30,456] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:31,180] [INFO] - simulation - Simulation report: Current time 16000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:31,181] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:31,900] [INFO] - simulation - Simulation report: Current time 17000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:31,901] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:32,621] [INFO] - simulation - Simulation report: Current time 18000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:32,622] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:33,340] [INFO] - simulation - Simulation report: Current time 19000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:33,341] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:34,067] [INFO] - simulation - Simulation report: Current time 20000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:34,068] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:34,788] [INFO] - simulation - Simulation report: Current time 21000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:34,789] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:35,510] [INFO] - simulation - Simulation report: Current time 22000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:35,510] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:36,229] [INFO] - simulation - Simulation report: Current time 23000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:36,229] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:36,957] [INFO] - simulation - Simulation report: Current time 24000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:36,958] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:37,679] [INFO] - simulation - Simulation report: Current time 25000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:37,679] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:38,404] [INFO] - simulation - Simulation report: Current time 26000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:38,404] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:39,126] [INFO] - simulation - Simulation report: Current time 27000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:39,126] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:39,879] [INFO] - simulation - Simulation report: Current time 28000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:39,879] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:40,612] [INFO] - simulation - Simulation report: Current time 29000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:40,612] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:41,332] [INFO] - simulation - Simulation report: Current time 30000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:41,333] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:42,050] [INFO] - simulation - Simulation report: Current time 31000000.0 (sim_handler.py:73)</span>
+<span class="ansi-white-fg">[2024-09-08 23:35:42,051] [INFO] - simulation - Mass conservation report: Deviation 1.50E-05% (sim_handler.py:61)</span>
+
+Tempo total de simulação:22.866801023483276 [s]
+Status da simulação: finished
+Exportando resultados...
+</pre></div></div>
+</div>
+<section id="Read-simulation-data">
+<h2>Read simulation data<a class="headerlink" href="#Read-simulation-data" title="Permalink to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modules.analysis.results_handler</span> <span class="kn">import</span> <span class="n">ResultsHandler</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;cfg&quot;</span><span class="p">]</span>
+    <span class="n">output_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./out/</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">sim_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">results_handler</span> <span class="o">=</span> <span class="n">ResultsHandler</span><span class="p">(</span><span class="n">simulation_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>
+    <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;results_handler&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_handler</span>
+</pre></div>
+</div>
+</div>
+<p>Plot concentration</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">target_positions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;constrained&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">results_handler</span> <span class="o">=</span> <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;results_handler&quot;</span><span class="p">]</span>
+    <span class="n">time</span><span class="p">,</span> <span class="n">concentration_profiles</span> <span class="o">=</span> <span class="n">results_handler</span><span class="o">.</span><span class="n">filter_for_positions</span><span class="p">(</span>
+        <span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;Concentration&quot;</span><span class="p">,</span> <span class="n">position_values</span><span class="o">=</span><span class="n">target_positions</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">position_lbl</span><span class="p">,</span> <span class="n">concentration_arr</span> <span class="ow">in</span> <span class="n">concentration_profiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">),</span> <span class="n">concentration_arr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">position_lbl</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Tempo [Dias]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.400</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Concentração&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.135</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+    <span class="c1"># ax.legend()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_study_cases_temperatura_8_0.png" src="../../_images/software_study_cases_temperatura_8_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">target_positions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;constrained&quot;</span><span class="p">,</span>
+    <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">results_handler</span> <span class="o">=</span> <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;results_handler&quot;</span><span class="p">]</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span>
+        <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Position&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span>
+        <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Concentration&quot;</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span>
+                <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Position&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">])</span>
+    <span class="c1"># ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># ax.legend()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_study_cases_temperatura_9_0.png" src="../../_images/software_study_cases_temperatura_9_0.png" />
+</div>
+</div>
+<p>Plot permeability</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">results_handler</span> <span class="o">=</span> <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;results_handler&quot;</span><span class="p">]</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Temperature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2800000</span>
+        <span class="p">],</span>
+        <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Position&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="n">results_handler</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2800000</span>
+        <span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.21</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="n">i</span> <span class="o">*</span> <span class="mi">20</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.21</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_study_cases_temperatura_11_0.png" src="../../_images/software_study_cases_temperatura_11_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">target_positions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="nb">min</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">case_data</span><span class="p">)),</span>
+    <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">case_data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;constrained&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">results_handler</span> <span class="o">=</span> <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;results_handler&quot;</span><span class="p">]</span>
+
+    <span class="n">time</span><span class="p">,</span> <span class="n">perm_profiles</span> <span class="o">=</span> <span class="n">results_handler</span><span class="o">.</span><span class="n">filter_for_positions</span><span class="p">(</span>
+        <span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;Permeability&quot;</span><span class="p">,</span> <span class="n">position_values</span><span class="o">=</span><span class="n">target_positions</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">position_lbl</span><span class="p">,</span> <span class="n">perm_arr</span> <span class="ow">in</span> <span class="n">perm_profiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">),</span> <span class="n">perm_arr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">position_lbl</span><span class="p">)</span>
+
+    <span class="c1"># ax.legend()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_study_cases_temperatura_12_0.png" src="../../_images/software_study_cases_temperatura_12_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>Plot pressure gradient</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="nb">min</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">case_data</span><span class="p">)),</span>
+    <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">case_data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;constrained&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">case_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">results_handler</span> <span class="o">=</span> <span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;results_handler&quot;</span><span class="p">]</span>
+
+    <span class="n">time</span><span class="p">,</span> <span class="n">pressure_grad_profiles</span> <span class="o">=</span> <span class="n">results_handler</span><span class="o">.</span><span class="n">filter_for_positions</span><span class="p">(</span>
+        <span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;Pressure_Gradient&quot;</span><span class="p">,</span> <span class="n">position_values</span><span class="o">=</span><span class="n">target_positions</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">position_lbl</span><span class="p">,</span> <span class="n">pressure_grad</span> <span class="ow">in</span> <span class="n">pressure_grad_profiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">),</span> <span class="n">pressure_grad</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">position_lbl</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">case_data</span><span class="p">[</span><span class="n">case</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Tempo [Dias]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.400</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Gradiente de Pressão&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+    <span class="c1"># ax.legend()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_study_cases_temperatura_15_0.png" src="../../_images/software_study_cases_temperatura_15_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="secao.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Variação de seção do poço</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../cli/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Interface CLI</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Read-simulation-data">Read simulation data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pablo Penas
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Pablo Penas.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

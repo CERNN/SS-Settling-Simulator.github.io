@@ -1,0 +1,561 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Teoria Constitutiva &#8212; Simulador de Sedimentação</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modelagem/matematica/teoria_constitutiva';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reologia" href="reologia.html" />
+    <link rel="prev" title="Modelagem Matemática" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Simulador de Sedimentação</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Seções</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../problema/index.html">Problema</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Modelagem</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Matemática</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Teoria Constitutiva</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="reologia.html">Reologia</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="power_law.html">Modelo de Potência</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hpht.html">Modelo HPHT</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="velocidade_solidos.html">Velocidade dos Sólidos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lista_simbolos.html">Lista de símbolos</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../numerica/index.html">Numérica</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../numerica/espacial.html">Discretização Espacial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../numerica/temporal.html">Discretização Temporal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../numerica/parametros.html">Parâmetros Numéricos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../software/index.html">Software</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../software/simulation/index.html">Módulo de simulação</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../software/simulation/simulation_example.html">Exemplo de simulação</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../software/simulation/hpht.html">Simulação HPHT</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../software/simulation/HPHT_simulation_pressure.html">Efeito da pressão</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../software/simulation/HPHT_simulation_temperature.html">Efeito da temperatura</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../software/simulation/HPHT_simulation.html">Efeito combinados</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../software/simulation/stepped_domain.html">Variação de seção transversal</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../software/simulation/stepped_domain_simulation.html">Domínio anular</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../software/estimation/index.html">Módulo de estimação</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../software/estimation/estimation_example.html">Exemplo de estimação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../software/estimation/estimation_analysis.html">Análise dos resultados</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../software/validation/index.html">Casos de validação</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../software/validation/rocha_2020.html">Rocha et. al (2020)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../software/study_cases/index.html">Casos de estudo</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../software/study_cases/secao.html">Variação de seção do poço</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../software/cli/index.html">Interface CLI</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/modelagem/matematica/teoria_constitutiva.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Teoria Constitutiva</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensao-nos-solidos">Tensão nos sólidos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pressao-nos-solidos">Pressão nos sólidos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forca-resistiva">Força Resistiva</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permeabilidade">Permeabilidade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensao-viscosa">Tensão Viscosa</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="teoria-constitutiva">
+<h1>Teoria Constitutiva<a class="headerlink" href="#teoria-constitutiva" title="Permalink to this heading">#</a></h1>
+<p>A Teoria Constitutiva define de que forma será incorporada a <strong>tensão nos sólidos</strong>, que caracteriza a interação sólido-sólido, e a forma da <strong>força resistiva</strong>, que caracteriza a interação fluido-sólido.</p>
+<section id="tensao-nos-solidos">
+<h2>Tensão nos sólidos<a class="headerlink" href="#tensao-nos-solidos" title="Permalink to this heading">#</a></h2>
+<p>Partindo da hipótese básica de que a suspensão é um <strong>meio isotrópico</strong>, D’AVILA and SAMPAIO<a class="footnote-reference brackets" href="#footcite-d1977equaccoes" id="id1">1</a> indicaram uma representação para o <strong>tensor tensão</strong>, com as seguintes considerações:</p>
+<ul class="simple">
+<li><p>O tensor possui apenas componentes normais (pressão estática) à superfície de contato entre as partículas, dependendo da porosidade do meio.</p></li>
+<li><p>O componente da tensão extra depende apenas da concentração da mistura, idêntica a porosidade do meio</p></li>
+</ul>
+<p>Assim o tensor de <strong>tensão nos sólidos</strong> é escrito como:</p>
+<div class="math notranslate nohighlight">
+\[T_s = T_s (\varphi _s) = -P_s (\varphi _s) I\]</div>
+<p>Ainda é preciso de uma equação para descrever a <strong>pressão nos sólidos em função da porosidade do meio</strong>.</p>
+<section id="pressao-nos-solidos">
+<h3>Pressão nos sólidos<a class="headerlink" href="#pressao-nos-solidos" title="Permalink to this heading">#</a></h3>
+<p>A equação utilizada nas zonas de sedimentação onde a <strong>interação sólido-sólido é significativa</strong>, é uma reparametrização proposta por Rocha <em>et al.</em><a class="footnote-reference brackets" href="#footcite-rocha2020settling" id="id2">2</a>:</p>
+<div class="math notranslate nohighlight">
+\[{P_s} = {P_{ref}}\exp \left[ { - \beta \left( {\frac{1}{{{\varphi _s}}} - \frac{1}{{{\varphi _{ref}}}}} \right)} \right]\]</div>
+<p>Onde <span class="math notranslate nohighlight">\(P_{ref}\)</span> e <span class="math notranslate nohighlight">\(\beta\)</span> são parâmetros da teoria constitutiva da pressão nos sólidos, e <span class="math notranslate nohighlight">\(\varphi _{ref}\)</span> é a concentração de referência.</p>
+<p>Dessa forma, o tensor de <strong>tensão nos sólidos</strong> pode ser derivado usando a regra da cadeia:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T_s (\varphi_s)}{\partial z} = - \frac{d P_s (\varphi_s)}{\varphi_s} \frac{\partial \varphi_s}{\partial z}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{d P_s (\varphi_s)}{\varphi_s} = \frac{P_{ref} \beta}{\varphi_s ^ 2} \exp \left[-\beta \left(\frac{1}{\varphi_s} - \frac{1}{\varphi_{ref}} \right) \right]\]</div>
+</section>
+</section>
+<section id="forca-resistiva">
+<h2>Força Resistiva<a class="headerlink" href="#forca-resistiva" title="Permalink to this heading">#</a></h2>
+<p>Com base no modelo de interação sólido-líquido de SILVA TELLES and Massarani<a class="footnote-reference brackets" href="#footcite-silva1979escoamento" id="id3">3</a>, a força resistiva entre as fases é função da viscosidade aparente da suspensão <span class="math notranslate nohighlight">\(\eta_{susp}\)</span>, da permeabiliade do meio <span class="math notranslate nohighlight">\(K\)</span>, e da velocidade da fase sólida <span class="math notranslate nohighlight">\(v_s\)</span>, na forma de:</p>
+<div class="math notranslate nohighlight">
+\[m = - \frac{\eta_{susp} v_s}{K}\]</div>
+<p>Rocha <em>et al.</em><a class="footnote-reference brackets" href="#footcite-rocha2020settling" id="id4">2</a> propuseram uma forma para a <strong>força resistiva</strong>, combinado com o conceito de viscosidade global de uma mistura de Bürger<a class="footnote-reference brackets" href="#footcite-burger2000phenomenological" id="id5">4</a>, com base na taxa de cisalhamento característica e tensão cisalhante:</p>
+<div class="math notranslate nohighlight">
+\[m = - \frac{1}{K}{\left( {\frac{{\tau \left( {{{\dot \gamma }_c}} \right)}}{{{{\dot \gamma }_c}}}} \right)_{susp}}\left( {1 - \frac{{{\rho _s}{\varphi _{s0}}}}{{{\rho _{susp}}}}} \right) v_s\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Esse modelo é dependente de uma expressão para calcular a <strong>permeabilidade do meio poroso</strong>, e da <strong>tensão viscosa</strong>.</p>
+</div>
+<section id="permeabilidade">
+<h3>Permeabilidade<a class="headerlink" href="#permeabilidade" title="Permalink to this heading">#</a></h3>
+<p>A <strong>permeabilidade do meio poroso</strong>, é calculada através da equação modificada de Tiller<a class="footnote-reference brackets" href="#footcite-tiller1980basic" id="id6">5</a>, proposta por Rocha <em>et al.</em><a class="footnote-reference brackets" href="#footcite-rocha2020settling" id="id7">2</a>:</p>
+<div class="math notranslate nohighlight">
+\[K\left( {{\varphi _s}} \right) = {k_0}d_p^2{\left( {\frac{{{\varphi _{\max }}}}{{{\varphi _s}}} - 1} \right)^\Lambda }\]</div>
+</section>
+<section id="tensao-viscosa">
+<h3>Tensão Viscosa<a class="headerlink" href="#tensao-viscosa" title="Permalink to this heading">#</a></h3>
+<p>Para completar a teoria constitutiva, é necessário caracterizar o <strong>modelo reológico</strong> do fluido através dos termos de <strong>tensão viscosa</strong> e <strong>taxa de cisalhamento característica</strong>, que representam a viscosidade aparente da suspensão.</p>
+<p>Uma forma para calcular a <strong>viscosidade aparente</strong>, é baseada em dois aspectos:</p>
+<ul class="simple">
+<li><p>O primeiro é a definição da <strong>taxa de cisalhamento característica</strong> para fluidos não-Newtonianos, conforme SILVA TELLES and Massarani<a class="footnote-reference brackets" href="#footcite-silva1979escoamento" id="id8">3</a>.</p></li>
+<li><p>O segundo, é a adoção do <strong>modelo reológico</strong>.</p></li>
+</ul>
+<p>A expressão para a taxa de cisalhamento característica, considera a <strong>esfericidade da partícula</strong> da fase sólida, de tal forma que possa ser escrita como:</p>
+<div class="math notranslate nohighlight">
+\[{\dot \gamma }_c = \frac{v_s}{(1 - \varphi_s)} \frac{f(\phi)}{d_p}\]</div>
+<p>Onde a função de esfericidade <span class="math notranslate nohighlight">\(f(\phi)\)</span>, definida por Laruccia<a class="footnote-reference brackets" href="#footcite-laruccia1990velocidade" id="id9">6</a>, tem a seguinte forma:</p>
+<div class="math notranslate nohighlight">
+\[f(\phi) = -3.45 \phi ^ 2 + 5.25 \phi - 1.41\]</div>
+<p>Para determinar a <strong>tensão viscosa</strong>, deve ser adotado um <strong>modelo reológico</strong> que melhor represente o comportamento da suspensão.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Para mais informações sobre a definição de um <strong>modelo reológico</strong>, consultar a seção <a class="reference internal" href="reologia.html"><span class="doc">Reologia</span></a>.</p>
+</div>
+<div class="docutils container" id="id10">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-d1977equaccoes"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>JS D’AVILA and R SAMPAIO. Equações de estado para a pressão no sólido. <em>Congresso Brasileiro de Engenharia Química</em>, 1977.</p>
+</dd>
+<dt class="label" id="footcite-rocha2020settling"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>,<a href="#id7">3</a>)</span></dt>
+<dd><p>Robson R Rocha, Bruno F Oechsler, Luiz AC Meleiro, Flávia M Fagundes, Fabio O Arouca, João JR Damasceno, Claudia M Scheid, and Luis A Calcada. Settling of weighting agents in non-newtonian fluids to off-shore drilling wells: modeling, parameter estimation and analysis of constitutive equations. <em>Journal of Petroleum Science and Engineering</em>, 184:106535, 2020.</p>
+</dd>
+<dt class="label" id="footcite-silva1979escoamento"><span class="brackets">3</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id8">2</a>)</span></dt>
+<dd><p>A SILVA TELLES and G Massarani. Escoamento de fluidos não-newtonianos em sistemas particulados. <em>Revista Brasileira de Física</em>, 9(2):535–550, 1979.</p>
+</dd>
+<dt class="label" id="footcite-burger2000phenomenological"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>RAIMUND Bürger. Phenomenological foundation and mathematical theory of sedimentation–consolidation processes. <em>Chemical Engineering Journal</em>, 80(1-3):177–188, 2000.</p>
+</dd>
+<dt class="label" id="footcite-tiller1980basic"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p>FM Tiller. Basic data fitting in filtration. <em>J. Chin. I. Chem. Engrs.</em>, 11:61–67, 1980.</p>
+</dd>
+<dt class="label" id="footcite-laruccia1990velocidade"><span class="brackets"><a class="fn-backref" href="#id9">6</a></span></dt>
+<dd><p>Moacyr Bartholomeu Laruccia. <em>Velocidade de sedimentação em fluidos não-newtonianos: efeito da forma e da concentração de partículas</em>. PhD thesis, [sn], 1990.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Modelagem Matemática</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="reologia.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reologia</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensao-nos-solidos">Tensão nos sólidos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pressao-nos-solidos">Pressão nos sólidos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forca-resistiva">Força Resistiva</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permeabilidade">Permeabilidade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensao-viscosa">Tensão Viscosa</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pablo Penas
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Pablo Penas.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

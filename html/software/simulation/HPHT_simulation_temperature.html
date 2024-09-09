@@ -1,0 +1,676 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Exemplo de simulação HPHT (efeito da temperatura) &#8212; Simulador de Sedimentação</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'software/simulation/HPHT_simulation_temperature';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Exemplo de simulação HPHT" href="HPHT_simulation.html" />
+    <link rel="prev" title="Exemplo de simulação HPHT (efeito da pressão hidrostática)" href="HPHT_simulation_pressure.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Simulador de Sedimentação</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Seções</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../problema/index.html">Problema</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modelagem/index.html">Modelagem</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modelagem/matematica/index.html">Matemática</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/matematica/teoria_constitutiva.html">Teoria Constitutiva</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modelagem/matematica/reologia.html">Reologia</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modelagem/matematica/power_law.html">Modelo de Potência</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modelagem/matematica/hpht.html">Modelo HPHT</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/matematica/velocidade_solidos.html">Velocidade dos Sólidos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/matematica/lista_simbolos.html">Lista de símbolos</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modelagem/numerica/index.html">Numérica</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/numerica/espacial.html">Discretização Espacial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/numerica/temporal.html">Discretização Temporal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modelagem/numerica/parametros.html">Parâmetros Numéricos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Software</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Módulo de simulação</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simulation_example.html">Exemplo de simulação</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="hpht.html">Simulação HPHT</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="HPHT_simulation_pressure.html">Efeito da pressão</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Efeito da temperatura</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HPHT_simulation.html">Efeito combinados</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="stepped_domain.html">Variação de seção transversal</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="stepped_domain_simulation.html">Domínio anular</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../estimation/index.html">Módulo de estimação</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../estimation/estimation_example.html">Exemplo de estimação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../estimation/estimation_analysis.html">Análise dos resultados</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../validation/index.html">Casos de validação</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../validation/rocha_2020.html">Rocha et. al (2020)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../study_cases/index.html">Casos de estudo</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../study_cases/secao.html">Variação de seção do poço</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">Interface CLI</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/software/simulation/HPHT_simulation_temperature.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exemplo de simulação HPHT (efeito da temperatura)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Read-simulation-data">Read simulation data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="Exemplo-de-simulação-HPHT-(efeito-da-temperatura)">
+<h1>Exemplo de simulação HPHT (efeito da temperatura)<a class="headerlink" href="#Exemplo-de-simulação-HPHT-(efeito-da-temperatura)" title="Permalink to this heading">#</a></h1>
+<p>Arquivo de configuração</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modules.simulation.config.model</span> <span class="kn">import</span> <span class="n">SimulationConfigModel</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="n">cfg_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./fixtures/HPHT_config_temperature.yaml&quot;</span><span class="p">)</span>
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">SimulationConfigModel</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">)</span>
+
+<span class="n">cfg</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SimulationConfigModel(sim_name=&#39;HPHT_simulation_temperature&#39;, domain=DomainModel(height=0.21, spatial_divisions=220), suspension=SuspensionModel(initial_conc=0.1391, max_conc=0.19), solid_phase=SolidPhaseModel(particle_diam=4.08e-05, particle_esphericity=0.8, density=2709.0), fluid_phase=FluidPhaseModel(density=891.4, power_law=PowerLawFluidModel(M=30.13, n=0.21)), simulation_parameters=SimulationParameters(timestep=100.0, total_time=31536000.0), export=FrequencyConfig(frequency=1000), report=FrequencyConfig(frequency=10000), HPHT=HPHTModel(temperature=HPHTTemperatureModel(model=&#39;exponential&#39;, reference_temperature=25.0, viscosity_factor=0.01, temperature_regimes=[HPHTTemperatureRegime(initial_step=0.0, top_temperature=25.0, gradient=50.0), HPHTTemperatureRegime(initial_step=10000.0, top_temperature=50.0, gradient=100.0)]), pressure=None), equation_parameters=EquationParameters(delta=0.58, k0=27.99, beta=0.19, ref_conc=0.14, p_ref=18.62))
+</pre></div></div>
+</div>
+<p>Instantiate Results Handler</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modules.simulation.sim_handler</span> <span class="kn">import</span> <span class="n">SimulationHandler</span>
+
+<span class="n">output_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./out/</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">sim_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">sim_handler</span> <span class="o">=</span> <span class="n">SimulationHandler</span><span class="p">(</span><span class="n">cfg</span><span class="o">=</span><span class="n">cfg</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Run simulation</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">sim_handler</span><span class="o">.</span><span class="n">start_simulation</span><span class="p">()</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tempo total de simulação:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; [s]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Status da simulação: &quot;</span> <span class="o">+</span> <span class="n">sim_handler</span><span class="o">.</span><span class="n">sim_status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-white-fg">[2024-05-06 18:44:50,173] [INFO] - simulation - Starting simulation... (sim_handler.py:67)</span>
+<span class="ansi-white-fg">[2024-05-06 18:44:50,174] [INFO] - simulation - Current time 0 (sim_handler.py:68)</span>
+<span class="ansi-white-fg">[2024-05-06 18:44:57,087] [INFO] - simulation - Simulation report: Current time 1000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:03,955] [INFO] - simulation - Simulation report: Current time 2000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:11,055] [INFO] - simulation - Simulation report: Current time 3000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:17,954] [INFO] - simulation - Simulation report: Current time 4000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:24,833] [INFO] - simulation - Simulation report: Current time 5000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:31,688] [INFO] - simulation - Simulation report: Current time 6000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:38,600] [INFO] - simulation - Simulation report: Current time 7000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:45,477] [INFO] - simulation - Simulation report: Current time 8000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:52,354] [INFO] - simulation - Simulation report: Current time 9000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:45:59,316] [INFO] - simulation - Simulation report: Current time 10000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:06,219] [INFO] - simulation - Simulation report: Current time 11000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:13,073] [INFO] - simulation - Simulation report: Current time 12000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:19,994] [INFO] - simulation - Simulation report: Current time 13000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:26,891] [INFO] - simulation - Simulation report: Current time 14000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:33,765] [INFO] - simulation - Simulation report: Current time 15000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:40,706] [INFO] - simulation - Simulation report: Current time 16000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:47,585] [INFO] - simulation - Simulation report: Current time 17000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:46:54,526] [INFO] - simulation - Simulation report: Current time 18000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:01,550] [INFO] - simulation - Simulation report: Current time 19000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:09,002] [INFO] - simulation - Simulation report: Current time 20000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:16,457] [INFO] - simulation - Simulation report: Current time 21000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:24,345] [INFO] - simulation - Simulation report: Current time 22000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:31,832] [INFO] - simulation - Simulation report: Current time 23000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:39,342] [INFO] - simulation - Simulation report: Current time 24000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:46,682] [INFO] - simulation - Simulation report: Current time 25000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:47:53,888] [INFO] - simulation - Simulation report: Current time 26000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:48:01,157] [INFO] - simulation - Simulation report: Current time 27000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:48:09,209] [INFO] - simulation - Simulation report: Current time 28000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:48:17,017] [INFO] - simulation - Simulation report: Current time 29000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:48:24,465] [INFO] - simulation - Simulation report: Current time 30000000.0 (sim_handler.py:58)</span>
+<span class="ansi-white-fg">[2024-05-06 18:48:31,944] [INFO] - simulation - Simulation report: Current time 31000000.0 (sim_handler.py:58)</span>
+
+Tempo total de simulação:225.6396975517273 [s]
+</pre></div></div>
+</div>
+<p>Export data</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_handler</span><span class="o">.</span><span class="n">export_sim_data</span><span class="p">()</span>
+<span class="n">sim_handler</span><span class="o">.</span><span class="n">export_domain_polydata</span><span class="p">(</span><span class="n">frequency_reduction</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Read-simulation-data">
+<h2>Read simulation data<a class="headerlink" href="#Read-simulation-data" title="Permalink to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modules.analysis.results_handler</span> <span class="kn">import</span> <span class="n">ResultsHandler</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="n">output_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./out/</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">sim_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">results_handler</span> <span class="o">=</span> <span class="n">ResultsHandler</span><span class="p">(</span><span class="n">simulation_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Plot concentration</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">target_positions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">]</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">concentration_profiles</span> <span class="o">=</span> <span class="n">results_handler</span><span class="o">.</span><span class="n">filter_for_positions</span><span class="p">(</span><span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;Concentration&quot;</span><span class="p">,</span> <span class="n">position_values</span><span class="o">=</span><span class="n">target_positions</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">position_lbl</span><span class="p">,</span> <span class="n">concentration_arr</span> <span class="ow">in</span> <span class="n">concentration_profiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">),</span> <span class="n">concentration_arr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">position_lbl</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tempo [Dias]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.400</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Concentração&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.135</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_simulation_HPHT_simulation_temperature_12_0.png" src="../../_images/software_simulation_HPHT_simulation_temperature_12_0.png" />
+</div>
+</div>
+<p>Plot permeability</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">target_positions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">]</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">perm_profiles</span> <span class="o">=</span> <span class="n">results_handler</span><span class="o">.</span><span class="n">filter_for_positions</span><span class="p">(</span><span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;Permeability&quot;</span><span class="p">,</span> <span class="n">position_values</span><span class="o">=</span><span class="n">target_positions</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">position_lbl</span><span class="p">,</span> <span class="n">perm_arr</span> <span class="ow">in</span> <span class="n">perm_profiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">),</span> <span class="n">perm_arr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">position_lbl</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tempo [Dias]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.400</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Permeabilidade [m²]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">5e-8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_simulation_HPHT_simulation_temperature_14_0.png" src="../../_images/software_simulation_HPHT_simulation_temperature_14_0.png" />
+</div>
+</div>
+<p>Plot pressure gradient</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">target_positions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">]</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">pressure_grad_profiles</span> <span class="o">=</span> <span class="n">results_handler</span><span class="o">.</span><span class="n">filter_for_positions</span><span class="p">(</span><span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;Pressure_Gradient&quot;</span><span class="p">,</span> <span class="n">position_values</span><span class="o">=</span><span class="n">target_positions</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">position_lbl</span><span class="p">,</span> <span class="n">pressure_grad</span> <span class="ow">in</span> <span class="n">pressure_grad_profiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">),</span> <span class="n">pressure_grad</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">position_lbl</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tempo [Dias]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.400</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Gradiente de Pressão&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/software_simulation_HPHT_simulation_temperature_16_0.png" src="../../_images/software_simulation_HPHT_simulation_temperature_16_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="HPHT_simulation_pressure.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Exemplo de simulação HPHT (efeito da pressão hidrostática)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="HPHT_simulation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exemplo de simulação HPHT</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Read-simulation-data">Read simulation data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pablo Penas
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Pablo Penas.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
