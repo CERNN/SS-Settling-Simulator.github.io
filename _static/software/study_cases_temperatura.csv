@@ -1,4 +1,4 @@
-Caso,T_topo,T_fundo
+Caso,:math:`T(z=h)`,:math:`T(z=0)`
 Temperatura Uniforme (25°C),25,25
 Temperatura Uniforme (60°C),60,60
 Temperatura Uniforme (100°C),100,100

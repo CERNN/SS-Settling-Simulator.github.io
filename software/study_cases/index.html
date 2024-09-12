@@ -45,6 +45,8 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'software/study_cases/index';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -358,11 +360,183 @@ document.write(`
 <p>Para avaliar as features do software, foram executados casos de estudo: variando o perfil de temperatura do poço; e variando a geometria (seção) do poço.</p>
 <section id="variacao-da-temperatura">
 <h2>Variação da temperatura<a class="headerlink" href="#variacao-da-temperatura" title="Permalink to this heading">#</a></h2>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../../_images/study_cases_temperatura.png"><img alt="../../_images/study_cases_temperatura.png" src="../../_images/study_cases_temperatura.png" style="width: 100%;" /></a>
-</figure>
-<table class="table" id="id1">
-<caption><span class="caption-text">Casos de estudo - variação do regime de temperatura do poço</span><a class="headerlink" href="#id1" title="Permalink to this table">#</a></caption>
+<p>Procurou-se avaliar o efeito da temperatura na evolução temporal do perfil de concentração.
+De acordo com o modelo HPHT, a viscosidade deve diminuir exponencialmente proporcional ao fator <span class="math notranslate nohighlight">\(a\)</span>, visto que esse fator assume valores positivos.</p>
+<p>O estudo de caso foram considerados quatro cenários. Abaixo estão os arquivos de configuração de cada caso:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Perfil uniforme de temperatura <span class="math notranslate nohighlight">\(T=T_{ref}\)</span></span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sim_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uniform_25</span>
+<span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="w">  </span><span class="nt">spatial_divisions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">220</span>
+<span class="nt">suspension</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">initial_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1391</span>
+<span class="w">  </span><span class="nt">max_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.19</span>
+<span class="nt">solid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">particle_diam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0000408</span>
+<span class="w">  </span><span class="nt">particle_esphericity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2709</span>
+<span class="nt">fluid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">891.4</span>
+<span class="w">  </span><span class="nt">power_law</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.13</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="nt">simulation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timestep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">  </span><span class="nt">total_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31536000</span>
+<span class="nt">equation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.622641</span>
+<span class="w">  </span><span class="nt">k0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47.601104</span>
+<span class="w">  </span><span class="nt">beta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04983</span>
+<span class="w">  </span><span class="nt">ref_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">p_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63.640954</span>
+<span class="nt">export</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="nt">report</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="nt">HPHT</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;exponential&quot;</span>
+<span class="w">    </span><span class="nt">reference_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">    </span><span class="nt">viscosity_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w"> </span><span class="c1"># a °C-¹ 5e-3-&gt;3e-2</span>
+<span class="w">    </span><span class="nt">temperature_regimes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">initial_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># s</span>
+<span class="w">        </span><span class="nt">top_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">        </span><span class="nt">gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># °C/m</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Perfil uniforme de temperatura <span class="math notranslate nohighlight">\(T=50°C\)</span></span><a class="headerlink" href="#id2" title="Permalink to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sim_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uniform_50</span>
+<span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="w">  </span><span class="nt">spatial_divisions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">220</span>
+<span class="nt">suspension</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">initial_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1391</span>
+<span class="w">  </span><span class="nt">max_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.19</span>
+<span class="nt">solid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">particle_diam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0000408</span>
+<span class="w">  </span><span class="nt">particle_esphericity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2709</span>
+<span class="nt">fluid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">891.4</span>
+<span class="w">  </span><span class="nt">power_law</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.13</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="nt">simulation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timestep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">  </span><span class="nt">total_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31536000</span>
+<span class="nt">equation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.622641</span>
+<span class="w">  </span><span class="nt">k0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47.601104</span>
+<span class="w">  </span><span class="nt">beta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04983</span>
+<span class="w">  </span><span class="nt">ref_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">p_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63.640954</span>
+<span class="nt">export</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="nt">report</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="nt">HPHT</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;exponential&quot;</span>
+<span class="w">    </span><span class="nt">reference_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">    </span><span class="nt">viscosity_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w"> </span><span class="c1"># a °C-¹</span>
+<span class="w">    </span><span class="nt">temperature_regimes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">initial_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># s</span>
+<span class="w">        </span><span class="nt">top_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">        </span><span class="nt">gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># °C/m</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Perfil uniforme de temperatura <span class="math notranslate nohighlight">\(T=100°C\)</span></span><a class="headerlink" href="#id3" title="Permalink to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sim_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uniform_100</span>
+<span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="w">  </span><span class="nt">spatial_divisions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">220</span>
+<span class="nt">suspension</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">initial_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1391</span>
+<span class="w">  </span><span class="nt">max_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.19</span>
+<span class="nt">solid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">particle_diam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0000408</span>
+<span class="w">  </span><span class="nt">particle_esphericity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2709</span>
+<span class="nt">fluid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">891.4</span>
+<span class="w">  </span><span class="nt">power_law</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.13</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="nt">simulation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timestep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">  </span><span class="nt">total_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31536000</span>
+<span class="nt">equation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.622641</span>
+<span class="w">  </span><span class="nt">k0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47.601104</span>
+<span class="w">  </span><span class="nt">beta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04983</span>
+<span class="w">  </span><span class="nt">ref_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">p_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63.640954</span>
+<span class="nt">export</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="nt">report</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="nt">HPHT</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;exponential&quot;</span>
+<span class="w">    </span><span class="nt">reference_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">    </span><span class="nt">viscosity_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w"> </span><span class="c1"># a °C-¹</span>
+<span class="w">    </span><span class="nt">temperature_regimes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">initial_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># s</span>
+<span class="w">        </span><span class="nt">top_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">        </span><span class="nt">gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># °C/m</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Perfil linear de temperatura <span class="math notranslate nohighlight">\(T(z=0)=100°C; T(z=h)=4°C\)</span></span><a class="headerlink" href="#id4" title="Permalink to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sim_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linear_4_120</span>
+<span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="w">  </span><span class="nt">spatial_divisions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">220</span>
+<span class="nt">suspension</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">initial_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1391</span>
+<span class="w">  </span><span class="nt">max_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.19</span>
+<span class="nt">solid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">particle_diam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0000408</span>
+<span class="w">  </span><span class="nt">particle_esphericity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2709</span>
+<span class="nt">fluid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">891.4</span>
+<span class="w">  </span><span class="nt">power_law</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.13</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="nt">simulation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timestep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">  </span><span class="nt">total_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31536000</span>
+<span class="nt">equation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.622641</span>
+<span class="w">  </span><span class="nt">k0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47.601104</span>
+<span class="w">  </span><span class="nt">beta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04983</span>
+<span class="w">  </span><span class="nt">ref_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">p_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63.640954</span>
+<span class="nt">export</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="nt">report</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="nt">HPHT</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;exponential&quot;</span>
+<span class="w">    </span><span class="nt">reference_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">    </span><span class="nt">viscosity_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w"> </span><span class="c1"># a °C-¹</span>
+<span class="w">    </span><span class="nt">temperature_regimes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">initial_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># s</span>
+<span class="w">        </span><span class="nt">top_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"> </span><span class="c1"># °C</span>
+<span class="w">        </span><span class="nt">gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">552.381</span><span class="w"> </span><span class="c1"># °C/m (120 - 4) / h</span>
+</pre></div>
+</div>
+</div>
+<table class="table" id="id5">
+<caption><span class="caption-text">Casos de estudo - variação do regime de temperatura do poço</span><a class="headerlink" href="#id5" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -370,8 +544,8 @@ document.write(`
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Caso</p></th>
-<th class="head"><p>T_topo</p></th>
-<th class="head"><p>T_fundo</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(T(z=h)\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(T(z=0)\)</span></p></th>
 </tr>
 </thead>
 <tbody>
@@ -393,14 +567,147 @@ document.write(`
 </tr>
 </tbody>
 </table>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../../_images/study_cases_temperatura.png"><img alt="../../_images/study_cases_temperatura.png" src="../../_images/study_cases_temperatura.png" style="width: 40%;" /></a>
+<figcaption>
+<p><span class="caption-text">Ilustração do domínio e o perfil de temperatura do poço de cada simulação deste caso.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="variacao-de-secao-do-poco">
 <h2>Variação de seção do poço<a class="headerlink" href="#variacao-de-secao-do-poco" title="Permalink to this heading">#</a></h2>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../../_images/study_cases_secao.png"><img alt="../../_images/study_cases_secao.png" src="../../_images/study_cases_secao.png" style="width: 100%;" /></a>
-</figure>
-<table class="table" id="id2">
-<caption><span class="caption-text">Casos de estudo - variação de seção do poço</span><a class="headerlink" href="#id2" title="Permalink to this table">#</a></caption>
+<p>Procurou-se avaliar o efeito da transição de seções na evolução temporal do perfil de concentração.
+De acordo com a condição de salto do modelo, o efeito da transição é proporcional a razão entre a área imediatamente acima e abaixo da discontinuidade.
+Para razões menores que 1, o efeito é de diluição da suspensão abaixo da discontinuidade.
+Para valores maiores que 1, o efeito é do aumento da concentração na região acima da discontinuidade.</p>
+<p>O estudo de caso foram considerados quatro cenários. Abaixo estão os arquivos de configuração de cada caso:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Poço reto</span><a class="headerlink" href="#id7" title="Permalink to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sim_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">poco_reto</span>
+<span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="w">  </span><span class="nt">spatial_divisions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">220</span>
+<span class="w">  </span><span class="nt">annular_domain</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">internal_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">        </span><span class="nt">radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
+<span class="nt">suspension</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">initial_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1391</span>
+<span class="w">  </span><span class="nt">max_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.19</span>
+<span class="nt">solid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">particle_diam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0000408</span>
+<span class="w">  </span><span class="nt">particle_esphericity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2709</span>
+<span class="nt">fluid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">891.4</span>
+<span class="w">  </span><span class="nt">power_law</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.13</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="nt">simulation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timestep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">  </span><span class="nt">total_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31536000</span>
+<span class="nt">equation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.622641</span>
+<span class="w">  </span><span class="nt">k0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47.601104</span>
+<span class="w">  </span><span class="nt">beta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04983</span>
+<span class="w">  </span><span class="nt">ref_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">p_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63.640954</span>
+<span class="nt">export</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="nt">report</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">2 seções</span><a class="headerlink" href="#id8" title="Permalink to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sim_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2_fases</span>
+<span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="w">  </span><span class="nt">spatial_divisions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">220</span>
+<span class="w">  </span><span class="nt">annular_domain</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">internal_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.105</span>
+<span class="w">        </span><span class="nt">radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">        </span><span class="nt">radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.03</span>
+<span class="nt">suspension</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">initial_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1391</span>
+<span class="w">  </span><span class="nt">max_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.19</span>
+<span class="nt">solid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">particle_diam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0000408</span>
+<span class="w">  </span><span class="nt">particle_esphericity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2709</span>
+<span class="nt">fluid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">891.4</span>
+<span class="w">  </span><span class="nt">power_law</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.13</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="nt">simulation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timestep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">  </span><span class="nt">total_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31536000</span>
+<span class="nt">equation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.622641</span>
+<span class="w">  </span><span class="nt">k0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47.601104</span>
+<span class="w">  </span><span class="nt">beta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04983</span>
+<span class="w">  </span><span class="nt">ref_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">p_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63.640954</span>
+<span class="nt">export</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="nt">report</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">4 seções</span><a class="headerlink" href="#id9" title="Permalink to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sim_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4_fases</span>
+<span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="w">  </span><span class="nt">spatial_divisions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">220</span>
+<span class="w">  </span><span class="nt">annular_domain</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">internal_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0525</span>
+<span class="w">        </span><span class="nt">radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.105</span>
+<span class="w">        </span><span class="nt">radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.03</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1575</span>
+<span class="w">        </span><span class="nt">radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">        </span><span class="nt">radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="nt">suspension</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">initial_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1391</span>
+<span class="w">  </span><span class="nt">max_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.19</span>
+<span class="nt">solid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">particle_diam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0000408</span>
+<span class="w">  </span><span class="nt">particle_esphericity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2709</span>
+<span class="nt">fluid_phase</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">891.4</span>
+<span class="w">  </span><span class="nt">power_law</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.13</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.21</span>
+<span class="nt">simulation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timestep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">  </span><span class="nt">total_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31536000</span>
+<span class="nt">equation_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.622641</span>
+<span class="w">  </span><span class="nt">k0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47.601104</span>
+<span class="w">  </span><span class="nt">beta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04983</span>
+<span class="w">  </span><span class="nt">ref_conc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">p_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63.640954</span>
+<span class="nt">export</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="nt">report</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</pre></div>
+</div>
+</div>
+<table class="table" id="id10">
+<caption><span class="caption-text">Casos de estudo - variação de seção do poço</span><a class="headerlink" href="#id10" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 17%" />
@@ -442,6 +749,12 @@ document.write(`
 </tr>
 </tbody>
 </table>
+<figure class="align-center" id="id11">
+<a class="reference internal image-reference" href="../../_images/study_cases_secao.png"><img alt="../../_images/study_cases_secao.png" src="../../_images/study_cases_secao.png" style="width: 80%;" /></a>
+<figcaption>
+<p><span class="caption-text">Ilustração do domínio e as transições de seção do poço de cada simulação deste caso.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="toctree-wrapper compound">
 </div>
 </section>
