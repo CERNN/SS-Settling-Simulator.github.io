@@ -1,7 +1,7 @@
 Documentação do Simulador de Sedimentação
 =========================================
 
-Essa é a descrição do projeto em python do Simulador de Sedimentação de Adensantes.
+Essa é a descrição do projeto em python do `Simulador de Sedimentação de Adensantes <https://github.com/CERNN/SS-Settling-Simulator>`_.
 
 O projeto é baseado na solução do modelo da **Teoria das Misturas da Mecânica do Contínuo**, e tem o objetivo de simular a sedimentação de partículas sólidas como adensantes de um fluido de perfuração.
 
